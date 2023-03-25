@@ -6,6 +6,7 @@ print(f"Move {cookiecutter_path.name} => {systemd_networkd_path}{' (overwrite)' 
 if input().lower() == 'y':
   systemd_networkd_path.parent.mkdir(parents=True, exist_ok=True)
   cookiecutter_path.rename(systemd_networkd_path)
+  print(f"Remember to configure systemd-network-static/systemd-network-dhcp")
 else:
   cookiecutter_path.rename(
     cookiecutter_path.parent.parent / cookiecutter_path.name

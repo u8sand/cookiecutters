@@ -7,6 +7,8 @@ By default it can install the service as a user service but can just as easily b
 Once created and installed, the user service can be managed with `systemctl`--e.g.
 ```bash
 # omit --user and probably add `sudo` when working with global systemd services
+systemctl --user daemon-reload
+
 systemctl --user start application.service
 systemctl --user status application.service
 systemctl --user stop application.service

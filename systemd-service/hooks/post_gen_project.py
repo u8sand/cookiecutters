@@ -6,6 +6,9 @@ print(f"Move {cookiecutter_path.name} => {local_systemd_path}{' (overwrite)' if 
 if input().lower() == 'y':
   local_systemd_path.parent.mkdir(parents=True, exist_ok=True)
   cookiecutter_path.rename(local_systemd_path)
+  print(f"Remember to run:")
+  print(f" systemctl --user daemon-reload")
+  print(f" systemctl --user enable --now {cookiecutter_path.name}")
 else:
   cookiecutter_path.rename(
     cookiecutter_path.parent.parent / cookiecutter_path.name
