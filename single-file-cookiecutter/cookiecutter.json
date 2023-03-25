@@ -1,0 +1,5 @@
+{
+  "cookiecutter_name": "cookiecutter",
+  "default_filename": "{{ cookiecutter.cookiecutter_name }}",
+  "extension": ".py"
+}

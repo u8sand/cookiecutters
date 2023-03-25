@@ -1,0 +1,3 @@
+{
+  "filename": "{{ cookiecutter.default_filename }}"
+}
