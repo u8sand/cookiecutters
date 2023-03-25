@@ -1,0 +1,16 @@
+[Unit]
+Description={{ cookiecutter.description }}
+{%- if cookiecutter.requires %}
+Requires={{ cookiecutter.requires }}
+{%- endif %}
+{%- if cookiecutter.after %}
+After={{ cookiecutter.after }}
+{%- endif %}
+
+[Service]
+Type={{ cookiecutter.type }}
+Restart={{ cookiecutter.restart }}
+ExecStart={{ cookiecutter.exec_start }}
+
+[Install]
+WantedBy={{ cookiecutter.wanted_by }}

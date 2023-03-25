@@ -1,0 +1,10 @@
+{
+  "description": "My Application",
+  "filename": "{{ cookiecutter.description|lower|replace(' ', '-') }}",
+  "type": ["simple", "oneshot", "forking"],
+  "restart": ["no", "always", "on-failure", "on-success"],
+  "exec_start": "/bin/sh -c 'echo hello world'",
+  "requires": "",
+  "after": "",
+  "wanted_by": "default.target"
+}
