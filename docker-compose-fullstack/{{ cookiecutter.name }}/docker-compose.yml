@@ -1,0 +1,85 @@
+version: '3.9'
+x-logging:
+  &default-logging
+  driver: 'json-file'
+  options:
+    max-size: '100k'
+    max-file: '10'
+services:
+  ingress:
+    build:
+      context: ingress
+    image: ${DOCKER_REGISTRY:-}ingress
+    command: >
+      --providers.file.directory=/config
+      --providers.file.watch=true
+      --providers.docker
+      --providers.docker.exposedByDefault=false
+      --entrypoints.web.address=:80
+{%- if cookiecutter.letsencrypt_email %}
+      --entrypoints.web.http.redirections.entrypoint.to=websecure
+      --entrypoints.web.http.redirections.entrypoint.scheme=https
+      --entrypoints.websecure.address=:443
+      --certificatesresolvers.letsencrypt-prod.acme.email=${LETSENCRYPT_EMAIL}
+      --certificatesresolvers.letsencrypt-prod.acme.storage=/data/acme.json
+      --certificatesresolvers.letsencrypt-prod.acme.tlschallenge=true
+{%- else %}
+      # --entrypoints.web.http.redirections.entrypoint.to=websecure
+      # --entrypoints.web.http.redirections.entrypoint.scheme=https
+      # --entrypoints.websecure.address=:443
+      # --certificatesresolvers.letsencrypt-prod.acme.email=${LETSENCRYPT_EMAIL}
+      # --certificatesresolvers.letsencrypt-prod.acme.storage=/data/acme.json
+      # --certificatesresolvers.letsencrypt-prod.acme.tlschallenge=true
+{%- endif %}
+    ports:
+      - 80:80
+{%- if cookiecutter.letsencrypt_email %}
+      - 443:443
+{%- else %}
+      # - 443:443
+{%- endif %}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./ingress/config:/config
+      - ./data/ingress:/data
+    logging: *default-logging
+
+  app:
+    build:
+      context: app
+    image: ${DOCKER_REGISTRY:-}app
+    deploy:
+      replicas: 1
+    env_file: .env
+    labels:
+      - "traefik.enable=true"
+      # CHANGEME: this port should be the port your app runs on
+      - "traefik.http.services.app.loadbalancer.server.port=80"
+{%- if cookiecutter.server_name %}
+      - "traefik.http.routers.app.rule=Host(`${SERVER_NAME}`) && PathPrefix(`/`)"
+{%- else %}
+      - "traefik.http.routers.app.rule=PathPrefix(`/`)"
+      # - "traefik.http.routers.app.rule=Host(`${SERVER_NAME}`) && PathPrefix(`/`)"
+{%- endif %}
+{%- if cookiecutter.letsencrypt_email %}
+      - "traefik.http.routers.app.tls=true"
+      - "traefik.http.routers.app.tls.certresolver=letsencrypt-prod"
+      - "traefik.http.routers.app.tls.domains[0].main=${SERVER_NAME}"
+{%- else %}
+      # - "traefik.http.routers.app.tls=true"
+      # - "traefik.http.routers.app.tls.certresolver=letsencrypt-prod"
+      # - "traefik.http.routers.app.tls.domains[0].main=${SERVER_NAME}"
+{%- endif %}
+    logging: *default-logging
+
+  postgres:
+    image: ${DOCKER_REGISTRY:-}postgres
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    logging: *default-logging

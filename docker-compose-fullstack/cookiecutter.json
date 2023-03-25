@@ -1,0 +1,7 @@
+{
+  "name": "app",
+  "server_name": "",
+  "letsencrypt_email": "",
+  "postgres_password": "{{ random_ascii_string(18) }}",
+  "_extensions": ["cookiecutter.extensions.RandomStringExtension"]
+}
