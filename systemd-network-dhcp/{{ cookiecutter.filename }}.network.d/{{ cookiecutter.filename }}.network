@@ -1,0 +1,10 @@
+[Match]
+Name={{ cookiecutter.name }}
+
+[Network]
+DHCP={{ cookiecutter.dhcp }}
+{%- if cookiecutter.comma_separated_dns_override %}
+{%- for dns in cookiecutter.comma_separated_dns_override.split(',') %}
+DNS={{ dns }}
+{%- endfor %}
+{%- endif %}

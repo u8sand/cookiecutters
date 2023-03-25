@@ -1,0 +1,11 @@
+[Match]
+Name={{ cookiecutter.name }}
+
+[Network]
+Address={{ cookiecutter.address }}
+Gateway={{ cookiecutter.gateway }}
+{%- if cookiecutter.comma_separated_dns %}
+{%- for dns in cookiecutter.comma_separated_dns.split(',') %}
+DNS={{ dns }}
+{%- endfor %}
+{%- endif %}

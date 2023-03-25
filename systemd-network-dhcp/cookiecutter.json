@@ -1,0 +1,6 @@
+{
+  "filename": "25-eth0",
+  "name": "eth0",
+  "dhcp": ["yes", "ipv4", "ipv6"],
+  "comma_separated_dns_override": ""
+}

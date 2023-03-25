@@ -1,0 +1,7 @@
+{
+  "filename": "25-eth0",
+  "name": "eth0",
+  "address": "192.168.1.2/24",
+  "gateway": "192.168.1.1",
+  "comma_separated_dns": ""
+}

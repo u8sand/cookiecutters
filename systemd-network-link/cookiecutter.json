@@ -1,0 +1,8 @@
+{
+  "filename": "10-eth0",
+  "name": "{{ cookiecutter.filename.partition('-')[-1] }}",
+  "description": "",
+  "mac_address": "00:00:00:00:00:00",
+  "policy": ["persistent", "random"],
+  "wake_on_lan": "{% if cookiecutter.policy == 'persistent' %}y{% else %}n{% endif %}"
+}

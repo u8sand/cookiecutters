@@ -1,0 +1,14 @@
+[Match]
+MACAddress={{ cookiecutter.mac_address }}
+
+[Link]
+Name={{ cookiecutter.name }}
+{%- if cookiecutter.description %}
+Description={{ cookiecutter.description }}
+{%- endif %}
+{%- if cookiecutter.policy %}
+MACAddressPolicy={{ cookiecutter.policy }}
+{%- endif %}
+{%- if cookiecutter.wake_on_lan and cookiecutter.wake_on_lan == 'y' %}
+WakeOnLan=magic
+{%- endif %}
