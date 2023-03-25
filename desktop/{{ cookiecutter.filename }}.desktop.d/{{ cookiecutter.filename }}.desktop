@@ -1,0 +1,22 @@
+[Desktop Entry]
+Type={{ cookiecutter.type }}
+Version={{ cookiecutter.version }}
+Name={{ cookiecutter.name }}
+{%- if cookiecutter.comment %}
+Comment={{ cookiecutter.comment }}
+{%- endif %}
+{%- if cookiecutter.path %}
+Path={{ cookiecutter.path }}
+{%- endif %}
+{%- if cookiecutter.exec %}
+Exec={{ cookiecutter.exec }}
+{%- endif %}
+{%- if cookiecutter.icon %}
+Icon={{ cookiecutter.icon }}
+{%- endif %}
+{%- if cookiecutter.type == 'Application' %}
+Terminal={{ cookiecutter.terminal }}
+{%- endif %}
+{%- if cookiecutter.categories %}
+Categories={{ cookiecutter.categories }}
+{%- endif %}

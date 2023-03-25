@@ -1,0 +1,12 @@
+{
+  "name": "Application",
+  "filename": "{{ cookiecutter.name|lower|replace(' ', '-') }}",
+  "type": ["Application", "Link", "Directory"],
+  "path": "",
+  "exec": "{% if cookiecutter.type == 'Application' %}/bin/sh -c 'echo Hi'{% endif %}",
+  "categories": "Custom;",
+  "comment": "",
+  "icon": "",
+  "terminal": ["false", "true"],
+  "version": "1.0"
+}
