@@ -1,0 +1,9 @@
+{
+  "filename": "config",
+  "host": "localhost",
+  "user": "",
+  "hostname": "{{ cookiecutter.host }}",
+  "port": "22",
+  "proxy_jump": "",
+  "identity_file": ""
+}

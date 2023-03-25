@@ -1,0 +1,15 @@
+Host {{ cookiecutter.host }}
+  HostName {{ cookiecutter.hostname }}
+{%- if cookiecutter.port != '22' %}
+  Port {{ cookiecutter.port }}
+{%- endif %}
+{%- if cookiecutter.proxy_jump %}
+  ProxyJump {{ cookiecutter.proxy_jump }}
+{%- endif %}
+{%- if cookiecutter.identity_file %}
+  IdentityFile {{ cookiecutter.identity_file }}
+  IdentitiesOnly yes
+{%- endif %}
+{%- if cookiecutter.user %}
+  User {{ cookiecutter.user }}
+{% endif %}
