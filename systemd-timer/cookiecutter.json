@@ -1,0 +1,7 @@
+{
+  "filename": "script",
+  "description": "My Timer",
+  "on_calendar": "Mon..Thu,Sat,Sun *-03-05 *:02/3:00",
+  "persistent": false,
+  "randomized_delay_sec": 0
+}

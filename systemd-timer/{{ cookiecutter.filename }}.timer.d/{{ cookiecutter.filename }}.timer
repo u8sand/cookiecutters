@@ -1,0 +1,15 @@
+[Unit]
+Description={{ cookiecutter.description }}
+
+[Timer]
+# for more information, see https://www.freedesktop.org/software/systemd/man/systemd.time.html
+OnCalendar={{ cookiecutter.on_calendar }}
+{%- if cookiecutter.randomized_delay_sec != 0 %}
+RandomizedDelaySec={{ cookiecutter.randomized_delay_sec }}
+{%- endif %}
+{%- if cookiecutter.persistent %}
+Persistent=true
+{%- endif %}
+
+[Install]
+WantedBy=timers.target
