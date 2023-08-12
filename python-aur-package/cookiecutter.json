@@ -1,0 +1,10 @@
+{
+  "pip_name": "requests",
+  "pip_ver": "{{ (cookiecutter.pip_name|pipinfo).info.version }}",
+  "pip_desc": "{{ (cookiecutter.pip_name|pipinfo).info.summary }}",
+  "pip_url": "{{ (cookiecutter.pip_name|pipinfo).info.home_page }}",
+  "pip_license": "{{ (cookiecutter.pip_name|pipinfo).info.license }}",
+  "__pip_deps": "{{ (cookiecutter.pip_name|pipinfo).info.requires_dist|pipdeps }}",
+  "__pip_optdeps": "{{ (cookiecutter.pip_name|pipinfo).info.requires_dist|pipoptdeps }}",
+  "_extensions": ["local_extensions.PipInfoExtension"]
+}

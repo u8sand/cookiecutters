@@ -1,0 +1,39 @@
+pkgname=python-{{ cookiecutter.pip_name }}
+_name=${pkgname#python-}
+pkgver={{ cookiecutter.pip_ver }}
+pkgrel=1
+pkgdesc="{{ cookiecutter.pip_desc }}"
+arch=('any')
+url="{{ cookiecutter.pip_url }}"
+license=('{{ cookiecutter.pip_license }}')
+depends=(
+{%- if cookiecutter.__pip_deps -%}
+{%- for dep in cookiecutter.__pip_deps.split('\n') %}
+  'python-{{ dep }}'
+{%- endfor %}
+{%- endif -%}
+)
+makedepends=('python-build' 'python-installer' 'python-setuptools' 'python-wheel')
+optdepends=(
+{%- if cookiecutter.__pip_optdeps -%}
+{%- for dep in cookiecutter.__pip_optdeps.split('\n') %}
+  'python-{{ dep }}'
+{%- endfor %}
+{%- endif -%}
+)
+source=("https://files.pythonhosted.org/packages/source/${_name::1}/$_name/$_name-$pkgver.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+  cd "${_name}-$pkgver"
+  python -m build --wheel --no-isolation
+}
+
+package() {
+  cd "${_name}-$pkgver"
+  python -m installer --destdir="$pkgdir" dist/*.whl
+
+	if [ -f LICENSE ]; then
+    install -Dm644 LICENSE -t "$pkgdir/usr/share/licenses/$pkgname/"
+	fi
+}
